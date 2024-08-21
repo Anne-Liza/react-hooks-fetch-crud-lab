@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import AdminNavBar from "./AdminNavBar";
+import QuestionForm from "./QuestionForm";  // Component for adding a new question
+import QuestionList from "./QuestionList";  // Component for listing all questions
 
-function AdminNavBar({ onChangePage }) {
+function AdminPanel() {
+  const [page, setPage] = useState("List");
+
+  function handleChangePage(page) {
+    setPage(page);
+  }
+
   return (
-    <nav>
-      <button onClick={() => onChangePage("Form")}>New Question</button>
-      <button onClick={() => onChangePage("List")}>View Questions</button>
-    </nav>
+    <div>
+      <AdminNavBar onChangePage={handleChangePage} />
+      {page === "Form" && <QuestionForm />}
+      {page === "List" && <QuestionList />}
+    </div>
   );
 }
 
-export default AdminNavBar;
+export default AdminPanel;
